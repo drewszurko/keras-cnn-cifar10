@@ -52,7 +52,7 @@ if __name__ == '__main__':
     decay = lr_rate / epochs
     # Train model on GC. If set to False, model will train locally. Default=False.
     # Before training on GC, update: config.yaml, run_cloud.sh, load_data.py ->_DATA_DIR_CLOUD.
-    cloud_train = True
+    cloud_train = False
     # Multi gpu support. Replace the below number with # of gpus. Default: gpus=0
     gpus = 0
 
