@@ -113,10 +113,12 @@ gcloud ml-engine jobs submit training $JOB_NAME \
 ```
 
 **load_data.py**
-```
-_DATA_DIR_CLOUD = 'gs://##[STORAGE_BUCKET]/##[STORAGE_BUCKET_SUBFOLDER]'
-```
+`_DATA_DIR_CLOUD = 'gs://##[STORAGE_BUCKET]/##[STORAGE_BUCKET_SUBFOLDER]'`
 
+**main.py**
+
+`cloud_train = True`
+    
 #### Run in the GCMLE
 After you have completed the steps above, run `./cloud_train.sh` from your terminal.
  If successful, you should see a similar prompt:
@@ -133,6 +135,7 @@ or continue streaming the logs with the command
 jobId: [JOB_NAME]
 state: QUEUED
 ```
+
 Note: The default polling interval for `$ gcloud ml-engine jobs stream-logs [YOUR_JOB_NAME]` is 60 seconds. 
 If you want to poll more frequently, you can use  `$ gcloud ml-engine jobs stream-logs [YOUR_JOB_NAME] --polling-interval = [INSERT SECONDS HERE]`.
 
