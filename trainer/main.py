@@ -1,8 +1,9 @@
+
 from __future__ import print_function
 from keras import backend as K
 from keras.utils import np_utils
 from trainer.load_data import load_dataset
-from trainer.models import create_model, compile_model, evaluate_model
+from trainer.models import build_model, compile_model, evaluate_model
 
 K.set_image_dim_ordering('th')
 
@@ -15,8 +16,8 @@ def dispatch():
     y_train = np_utils.to_categorical(y_train)
     y_test = np_utils.to_categorical(y_test)
 
-    # Create the model.
-    model = create_model(10)
+    # Build the model.
+    model = build_model(10, gpus)
 
     # Compile the model.
     model = compile_model(model, lr_rate, decay)
@@ -45,6 +46,8 @@ if __name__ == '__main__':
     # Train model on GC. If set to False, model will train locally. Default=False.
     # Before training on GC, update: config.yaml, run_cloud.sh, load_data.py ->_DATA_DIR_CLOUD.
     cloud_train = False
+    # When GPUs >=1, replace the below number with # of GPUs. Default: gpus=0.
+    gpus = 0
 
     # Start model build, train, test, and predict process.
     dispatch()
