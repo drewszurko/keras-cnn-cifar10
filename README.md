@@ -24,18 +24,18 @@ brew install hdf5
 ## Installation
 ```
 virtualenv keras-cifar10
-.keras-cifar10/bin/activate
+. ./keras-cifar10/bin/activate
 pip install --upgrade pip setuptools
 git clone https://github.com/drewszurko/keras-cnn-cifar10.git
 cd keras-cnn-cifar10/ 
-python install -r requirements.txt
+pip install -r requirements.txt
 python setup.py install
 python trainer/main.py
 ```
 
 If you plan to train locally on an NVIDIA® GPU, you'll need to `pip install --upgrade tensorflow-gpu`.
 
-Note: Running `requirements.txt` and `setup.py` is necessary. TensorFlow can't be included in the
+Note: Executing both `python install -r requirements.txt` and `python setup.py install` is necessary. TensorFlow can't be included in the
 `setup.py` -> `install_requires` because of an install conflict with the GCMLE environment. 
 
 
@@ -45,7 +45,7 @@ If you plan to train on the GCMLE environment, there's a few additional steps yo
 ### Prerequisites
 Required for GCMLE deployment:
 * A Google Cloud Platform account access.
-* Cloud ML Engine and Cloud Storage APIs have been activated. 
+* Your GCMLE and Cloud Storage APIs have been activated. 
 * Cloud SDK has been installed and initialized locally.
 * A Cloud Storage Bucket for our CIFAR10 data.
 
@@ -80,7 +80,6 @@ Copy the extracted CIFAR10 dataset files and upload them to the previous steps f
 Replace the below ##[] with your GCMLE project info. 
 
 **setup.py**
-
 ```
 setup(name='trainer',
       version='0.1',
@@ -113,6 +112,7 @@ gcloud ml-engine jobs submit training $JOB_NAME \
 ```
 
 **load_data.py**
+
 `_DATA_DIR_CLOUD = 'gs://##[STORAGE_BUCKET]/##[STORAGE_BUCKET_SUBFOLDER]'`
 
 **main.py**
