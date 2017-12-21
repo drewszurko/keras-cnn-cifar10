@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-REQUIRED_PACKAGES = ['keras==2.1.2', 'h5py', 'tqdm']
+REQUIRED_PACKAGES = ['keras==2.1.2', 'h5py==2.7.1', 'tqdm==4.19.5']
 
 # Setup parameters for GC ML Engine.
 setup(name='trainer',
