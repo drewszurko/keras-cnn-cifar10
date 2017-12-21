@@ -1,13 +1,32 @@
 from __future__ import print_function
+from keras import backend as K
+from keras.utils import multi_gpu_model
 from keras.models import Sequential
 from keras.layers import Conv2D, Dropout, MaxPooling2D, Flatten, Dense
 from keras.constraints import maxnorm
 from keras.optimizers import SGD
+import tensorflow as tf
+
+K.set_image_dim_ordering('th')
 
 _MODEL = 'model_'
 
 
-def create_model(num_classes):
+def build_model(num_classes, gpus):
+    # If gpus count >=2, return the multi_gpu_model.
+    # 9+ gpus is not supported so Keras will throw an error prompting the user to enter valid GPU #.
+    if gpus >= 2:
+        with tf.device('/cpu:0'):
+            # Create the model.
+            model = _create_model(num_classes)
+            # Wrap model in Keras multi_gpu_model for multi GPU support.
+            return multi_gpu_model(model, gpus)
+    else:
+        # Other return regular model b/c it supports gpu counts <=1.
+        return _create_model(num_classes)
+
+
+def _create_model(num_classes):
     model = Sequential()
     model.add(Conv2D(32, (3, 3), input_shape=(3, 32, 32), activation='relu', padding='same'))
     model.add(Dropout(0.2))
