@@ -24,11 +24,11 @@ brew install hdf5
 ## Installation
 ```
 virtualenv keras-cifar10
-.keras-cifar10/bin/activate
+source keras-cifar10/bin/activate
 pip install --upgrade pip setuptools
 git clone https://github.com/drewszurko/keras-cnn-cifar10.git
 cd keras-cnn-cifar10/ 
-python install -r requirements.txt
+pip install -r requirements.txt
 python setup.py install
 python trainer/main.py
 ```
