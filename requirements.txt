@@ -1,6 +1,7 @@
-requests==2.18.1
-numpy==1.13.3
-six==1.11.0
+h5py==2.7.1
 keras==2.1.2
-tensorflow
+numpy==1.13.3
+requests==2.18.1
+six==1.11.0
+tensorflow=1.4.1
 tqdm==4.19.5
