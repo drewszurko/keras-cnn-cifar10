@@ -5,6 +5,7 @@ from tensorflow.python.lib.io import file_io
 import pickle
 import six
 import numpy as np
+import sys
 
 # Do not manually change this variable. Cloud training should be specified from main.py.
 is_cloud_train = False
@@ -16,6 +17,10 @@ _DATA_BATCH = 'data_batch_'
 _TEST_BATCH = 'test_batch'
 _BATCH_META = 'batches.meta'
 
+# Get real path so we can check if cifar10-data is already downloaded.
+rel_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+data_path = os.path.join(rel_path, _DATA_DIR_LOCAL)
+
 
 def load_dataset(cloud_train):
     # Set the global is_cloud_train variable so we can return the correct data file_path.
@@ -25,7 +30,7 @@ def load_dataset(cloud_train):
     print("\nImporting data. Please wait...")
 
     # Check if cifar10-data directory already exists. If not, download data.
-    if not cloud_train and not os.path.exists(_DATA_DIR_LOCAL):
+    if not cloud_train and not os.path.isdir(data_path):
         print("\nNo data found. Let's fix that!")
         download_data()
 
@@ -109,7 +114,7 @@ def unpickle_file(filename):
 # Return correct filepath & filename for local or cloud training.
 def get_file_path(filename=""):
     if not is_cloud_train:
-        usr_dir = _DATA_DIR_LOCAL
+        usr_dir = data_path
     else:
         usr_dir = _DATA_DIR_CLOUD
     return os.path.join(usr_dir, filename)
